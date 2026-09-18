@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clasificaci&oacute;n de Casas &middot; North Hill Education System</title>
+    <meta
+      name="description"
+      content="Clasificaci&oacute;n en vivo de las casas del North Hill Education System: Wolves, Falcons, Lions y Bears."
+    />
+    <meta name="theme-color" content="#f6f6f4" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/logos/wolves.png" />
+    <meta property="og:title" content="Clasificaci&oacute;n de Casas &middot; North Hill Education System" />
+    <meta property="og:description" content="Clasificaci&oacute;n en vivo de las casas del North Hill Education System." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/background1.jpg" />
+    <link rel="preload" as="image" href="assets/background1.jpg" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://firestore.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <a class="sr-only" href="#standings" data-i18n="nav.standings">Clasificaci&oacute;n</a>
+
+    <header class="topbar">
+      <div class="shell topbar__inner">
+        <div class="brand">
+          <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+            <path d="M12 2.6 20 6v6.3c0 4.2-3.2 7.6-8 9.1-4.8-1.5-8-4.9-8-9.1V6z" />
+            <path d="M12 7.6v8.4M8.4 11.8h7.2" stroke-linecap="round" />
+          </svg>
+          <div class="brand__text">
+            <div class="brand__name" data-i18n="brand.school">North Hill Education System</div>
+            <div class="brand__sub" data-i18n="brand.sub">Sistema de Casas</div>
+          </div>
+        </div>
+        <nav class="topbar__nav" aria-label="Site">
+          <span id="languageSlot"></span>
+          <button class="ghost-btn ghost-btn--icon" id="themeToggle" type="button" data-i18n-label="nav.toggleDark" data-i18n-title="nav.toggleDark">
+            <span data-theme-icon></span>
+          </button>
+          <a class="ghost-btn" href="staff.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="10.5" width="16" height="10.5" rx="2" />
+              <path d="M8.2 10.5V7.4a3.8 3.8 0 0 1 7.6 0v3.1" />
+            </svg>
+            <span data-i18n="nav.staffSignIn">Acceso del personal</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero__media">
+          <img
+            src="assets/background1.jpg"
+            srcset="assets/background1-small.jpg 1000w, assets/background1.jpg 2000w"
+            sizes="100vw"
+            alt=""
+            aria-hidden="true"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="shell hero__inner">
+          <span class="hero__eyebrow" id="seasonLabel" data-i18n="hero.eyebrow">Sistema de Casas</span>
+          <h1 class="hero__title" data-i18n="hero.title">Clasificaci&oacute;n de Casas</h1>
+          <p class="hero__lede" data-i18n="hero.lede">
+            Puntos ganados por las cuatro casas en deporte, estudios, conducta y servicio a lo largo del a&ntilde;o escolar.
+          </p>
+          <div class="hero__meta">
+            <span class="hero__meta-item">
+              <span class="live-dot" id="liveDot" data-state="connecting"></span>
+              <span id="liveLabel" data-i18n="hero.connecting">Conectando&hellip;</span>
+            </span>
+            <span class="hero__meta-divider" aria-hidden="true"></span>
+            <span class="hero__meta-item">
+              <span style="opacity: 0.72" data-i18n="hero.totalAwarded">Total otorgado</span>
+              <strong id="totalPoints" style="font-variant-numeric: tabular-nums">&mdash;</strong>
+            </span>
+            <span class="hero__meta-divider" aria-hidden="true"></span>
+            <span class="hero__meta-item" id="updatedWrap">
+              <span style="opacity: 0.72" data-i18n="hero.updated">Actualizado</span>
+              <strong id="updatedAt">&mdash;</strong>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <div class="shell">
+        <section class="section" id="standings" aria-labelledby="standingsTitle">
+          <div class="section__head">
+            <h2 class="section__title" id="standingsTitle" data-i18n="standings.title">Clasificaci&oacute;n actual</h2>
+            <p class="section__note" data-i18n="standings.note">Se actualiza sola, no hace falta recargar la p&aacute;gina.</p>
+          </div>
+
+          <div id="errorSlot"></div>
+
+          <div class="standings" id="houseGrid"></div>
+        </section>
+
+        <section class="section section--tight" aria-labelledby="leaderTitle">
+          <h2 class="sr-only" id="leaderTitle" data-i18n="leader.label">Va en primer lugar</h2>
+          <div class="leader" id="leaderCard">
+            <img class="leader__logo" id="leaderLogo" src="assets/logos/wolves.png" alt="" aria-hidden="true" />
+            <div class="leader__body">
+              <div class="leader__label" data-i18n="leader.label">Va en primer lugar</div>
+              <h3 class="leader__title" id="leaderName">&mdash;</h3>
+              <p class="leader__detail" id="leaderDetail" data-i18n="leader.waiting">Esperando la clasificaci&oacute;n&hellip;</p>
+            </div>
+            <div class="leader__score">
+              <div class="leader__score-value" id="leaderPoints">&mdash;</div>
+              <div class="leader__score-label" data-i18n="leader.points">Puntos</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--tight" aria-labelledby="compareTitle">
+          <div class="section__head">
+            <h2 class="section__title" id="compareTitle" data-i18n="compare.title">Lado a lado</h2>
+          </div>
+          <div class="panel">
+            <div class="panel__body">
+              <div class="compare" id="compareList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--tight" aria-labelledby="factsTitle">
+          <div class="section__head">
+            <h2 class="section__title" id="factsTitle" data-i18n="facts.title">De un vistazo</h2>
+          </div>
+          <div class="info-grid" id="statGrid"></div>
+        </section>
+
+        <section class="section section--tight" id="championsSection" aria-labelledby="championsTitle" hidden>
+          <div class="section__head">
+            <h2 class="section__title" id="championsTitle" data-i18n="champions.title">Campeonas anteriores</h2>
+            <p class="section__note" data-i18n="champions.note">Temporadas terminadas</p>
+          </div>
+          <div class="panel">
+            <div class="champions" id="championsList"></div>
+          </div>
+        </section>
+
+        <section class="section section--tight">
+          <div class="notice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="10.5" width="16" height="10.5" rx="2" />
+              <path d="M8.2 10.5V7.4a3.8 3.8 0 0 1 7.6 0v3.1" />
+            </svg>
+            <span data-i18n="notice.readOnly">
+              Esta p&aacute;gina es solo de lectura. Los puntos se otorgan y se corrigen &uacute;nicamente desde la consola de
+              administraci&oacute;n del Sistema de Casas.
+            </span>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer__inner">
+        <span id="footerLine" data-i18n="footer.line">North Hill Education System &middot; Sistema de Casas</span>
+        <span class="footer__links">
+          <a href="staff.html" data-i18n="nav.staffSignIn">Acceso del personal</a>
+          <a href="#standings" data-i18n="nav.standings">Clasificaci&oacute;n</a>
+        </span>
+      </div>
+    </footer>
+
+    <script type="module" src="js/site.js"></script>
+  </body>
+</html>
